@@ -1,0 +1,23 @@
+header,
+footer {
+    background-color: aqua;
+}
+
+nav {
+    display: flex;
+    align-items: left;
+    padding: 20px;
+}
+
+
+.three-images {
+    display: flex;
+    justify-content: flex-end;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
