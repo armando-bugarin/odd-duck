@@ -14,19 +14,12 @@ nav img, h1 {
     padding: 10px;
 }
 
-.three-images {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-basis: 33%;
-}
-
 .image {
     position: relative;
     margin: 10px;
     left: 240px;
-    width: 400px;
-    height: 300px;
+    width: 300px;
+    height: 200px;
     box-shadow: 20px 10px 5px rgba(0, 0, 0, 1);
 }
 
