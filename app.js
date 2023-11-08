@@ -1,6 +1,7 @@
 'use strict';
 
-let workingImages = [];
+Image.workingImages = [];
+
 const allImages = [];
 let leftImageInstance = null;
 let centerImageInstance = null;
@@ -19,10 +20,12 @@ function Image(name, imagePath) {
   this.timesShown = 0;
   this.views = 0;
   this.clicks = 0;
+
+  Image.workingImages.push(this);
 }
 
 // Image.allImages = [];
-// Product.workingImages = [];
+// Product.Image.workingImages = [];
 
 let bag = new Image('bag', 'img/bag.jpg');
 let banana = new Image('banana', 'img/banana.jpg');
@@ -75,19 +78,19 @@ function renderImages() {
     rightImage.removeEventListener('click', handleRightImageClick);
   }
 
-  if (workingImages.length <= 1) {
-    workingImages = allImages.slice();
-    shuffleArray(workingImages);
+  if (Image.workingImages.length <= 1) {
+    Image.workingImages = allImages.slice();
+    shuffleArray(Image.workingImages);
   }
 
-  leftImageInstance = workingImages.pop(); // pop retrieves and removes last item (photo in this case)
+  leftImageInstance = Image.workingImages.pop(); // pop retrieves and removes last item (photo in this case)
   console.log(leftImageInstance.imagePath);
   leftImage.setAttribute('src', leftImageInstance.imagePath);
 
-  centerImageInstance = workingImages.pop();
+  centerImageInstance = Image.workingImages.pop();
   centerImage.setAttribute('src', centerImageInstance.imagePath);
 
-  rightImageInstance = workingImages.pop();
+  rightImageInstance = Image.workingImages.pop();
   rightImage.setAttribute('src', rightImageInstance.imagePath);
 
   leftImageInstance.views += 1;
