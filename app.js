@@ -2,14 +2,14 @@
 
 let workingImages = [];
 const allImages = [];
-const leftImage = document.querySelector('section img:first-child');
-const centerImage = document.querySelector('section img:nth-child(2)');
-const rightImage = document.querySelector('section img:nth-child(3)');
-const viewResults = document.querySelector('div');
-const ulElem = document.querySelector('ul');
 let leftImageInstance = null;
 let centerImageInstance = null;
 let rightImageInstance = null;
+const leftImage = document.querySelector('section img:first-child');
+const centerImage = document.querySelector('section img:nth-child(2)');
+const rightImage = document.querySelector('section img:nth-child(3)');
+const viewResults = document.querySelector('button');
+const ulElem = document.querySelector('ul');
 let clickCtr = 0;
 const maxRounds = 25;
 
@@ -17,7 +17,12 @@ function Image(name, imagePath) {
   this.name = name;
   this.imagePath = imagePath;
   this.timesShown = 0;
+  this.views = 0;
+  this.clicks = 0;
 }
+
+// Image.allImages = [];
+// Product.workingImages = [];
 
 let bag = new Image('bag', 'img/bag.jpg');
 let banana = new Image('banana', 'img/banana.jpg');
@@ -33,7 +38,7 @@ let pen = new Image('pen', 'img/pen.jpg');
 let petsweep = new Image('pet-sweep', 'img/pet-sweep.jpg');
 let scissors = new Image('scissors', 'img/scissors.jpg');
 let shark = new Image('shark', 'img/shark.jpg');
-let sweep = new Image('sweep', 'img/sweep.jpg');
+let sweep = new Image('sweep', 'img/sweep.png');
 let tauntaun = new Image('tauntaun', 'img/tauntaun.jpg');
 let unicorn = new Image('unicorn', 'img/unicorn.jpg');
 let watercan = new Image('water-can', 'img/water-can.jpg');
@@ -66,17 +71,16 @@ function renderImages() {
     viewResults.addEventListener('click', handleViewResultsClick);
 
     leftImage.removeEventListener('click', handleLeftImageClick);
-    centerImage.remoteEventListener('click', handleCenterImageClick);
+    centerImage.removeEventListener('click', handleCenterImageClick);
     rightImage.removeEventListener('click', handleRightImageClick);
   }
 
-  console.log(allImages);
   if (workingImages.length <= 1) {
     workingImages = allImages.slice();
     shuffleArray(workingImages);
   }
 
-  leftImageInstance = workingImages.pop();
+  leftImageInstance = workingImages.pop(); // pop retrieves and removes last item (photo in this case)
   console.log(leftImageInstance.imagePath);
   leftImage.setAttribute('src', leftImageInstance.imagePath);
 
