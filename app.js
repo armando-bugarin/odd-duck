@@ -1,7 +1,6 @@
 'use strict';
 
 Image.workingImages = [];
-
 const allImages = [];
 let leftImageInstance = null;
 let centerImageInstance = null;
@@ -10,7 +9,6 @@ const leftImage = document.querySelector('section img:first-child');
 const centerImage = document.querySelector('section img:nth-child(2)');
 const rightImage = document.querySelector('section img:nth-child(3)');
 const viewResults = document.querySelector('button');
-const ulElem = document.querySelector('ul');
 let clickCtr = 0;
 const maxRounds = 25;
 
@@ -108,7 +106,7 @@ function shuffleArray(array) {
 }
 
 function handleLeftImageClick() {
-  if(clickCtr < maxRounds) {
+  if (clickCtr < maxRounds) {
     leftImageInstance.clicks += 1;
     clickCtr += 1;
   }
@@ -116,7 +114,7 @@ function handleLeftImageClick() {
 }
 
 function handleCenterImageClick() {
-  if(clickCtr < maxRounds) {
+  if (clickCtr < maxRounds) {
     centerImageInstance.clicks += 1;
     clickCtr += 1;
   }
@@ -124,7 +122,7 @@ function handleCenterImageClick() {
 }
 
 function handleRightImageClick() {
-  if(clickCtr < maxRounds) {
+  if (clickCtr < maxRounds) {
     rightImageInstance.clicks += 1;
     clickCtr += 1;
   }
@@ -142,12 +140,45 @@ rightImage.addEventListener('click', handleRightImageClick);
 renderImages();
 
 function renderResults() {
-  for(let i = 0; i < allImages.length; i++) {
-    const currentImage = allImages[i];
-    const result = `${currentImage.name} has ${currentImage.views} views and was clicked ${currentImage.clicks} times.`;
+  const labels = [];
+  const votesData = [];
+  const viewsData = [];
 
-    const liElem = document.createElement('li');
-    ulElem.appendChild(liElem);
-    liElem.textContent = result;
+  for (let i = 0; i < allImages.length; i++) {
+    const currentImage = allImages[i];
+    labels.push(currentImage.name);
+    votesData.push(currentImage.clicks);
+    viewsData.push(currentImage.views);
   }
+
+  const ctx = document.getElementById('resultsChart').getContext('2d');
+  const chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Votes',
+          data: votesData,
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1,
+        },
+        {
+          label: 'Views',
+          data: viewsData,
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
 }
